@@ -68,7 +68,7 @@ public_users.get('/review/:isbn',function (req, res) {
    const isbn = req.params.isbn;
    let filtered_book = books[isbn]
    console.log(filtered_book)
-   res.send(review);
+   res.send(filtered_book.reviews)
 });
 
 module.exports.general = public_users;

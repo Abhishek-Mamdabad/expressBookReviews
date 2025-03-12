@@ -56,14 +56,13 @@ regd_users.post("/login", (req,res) => {
 regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
   const isbn = req.params.isbn;
-  console.log(isbn)
   let filtered_book = books[isbn]
   const review = req.body.review;
   const reviews= filtered_book.reviews;
   const username = req.session.authorization["username"]
   reviews[username] = review;
-  res.send(`book with isbn ${isbn} updated`)
-
+  console.log(books)
+  res.send(books[isbn])
 });
 
 module.exports.authenticated = regd_users;
