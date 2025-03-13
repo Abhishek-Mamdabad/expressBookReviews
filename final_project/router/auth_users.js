@@ -20,7 +20,7 @@ let filtered_users = users.filter( user => {
     return user.username === username && user.password ===password
 })
 
-console.log(users)
+
 return filtered_users.length> 0
 
 }
@@ -61,9 +61,25 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   const reviews= filtered_book.reviews;
   const username = req.session.authorization["username"]
   reviews[username] = review;
-  console.log(books)
   res.send(books[isbn])
 });
+
+
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+
+    const isbn = req.params.isbn
+    const username = req.session.authorization["username"]
+    let filtered_book =books[isbn]
+    
+
+    filtered_book.reviews = Object.fromEntries(Object.entries(filtered_book.reviews).filter(([key]) => {
+        return key!=username
+    }))
+
+    filtered_book.reviews
+    res.send(books[isbn])
+    
+})
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
